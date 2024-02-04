@@ -164,7 +164,7 @@ func SetApiRequest(points PointList) routingpb.ComputeRoutesRequest {
 func main() {
 
 	ctx := context.Background()
-	client, err := routing.NewRoutesClient(ctx, option.WithAPIKey(("AIzaSyALCXpP8zMgMqZZ-7Nc8s7QBpdicqCqrj8")))
+	client, err := routing.NewRoutesClient(ctx, option.WithAPIKey(("API")))
 	if err != nil {
 		fmt.Println(err)
 	}
