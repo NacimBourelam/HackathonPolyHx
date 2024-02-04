@@ -178,3 +178,29 @@ footer {
 .actual-text {
     color: transparent;
 }
+
+
+#optimize-button,
+#reset-button {
+    margin: 20px auto;
+    display: inline-block; /* Modifier cette ligne */
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#optimize-button:hover {
+    background-color: #0056b3;
+}
+
+#reset-button {
+    margin-left: 20px; /* Ajouter cette ligne pour un espace entre les boutons */
+}
+
+#reset-button:hover {
+    background-color: red;
+}
