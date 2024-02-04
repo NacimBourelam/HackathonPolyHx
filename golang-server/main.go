@@ -16,16 +16,25 @@ import (
 )
 
 type Point struct {
-	X int `json:"x"`
-	Y int `json:"y"`
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
 }
 
 type PointList struct {
 	Points []Point
 }
 
+func TestHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Write([]byte("{\"x\":34,\"y\":45}"))
+}
+
 func AlgoHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Header().Add("Access-Control-Allow-Methods", "POST, GET")
+	w.Header().Add("Access-Control-Allow-Headers", "*")
 	r.ParseForm()
 	var points PointList
 	if err := json.NewDecoder(r.Body).Decode(&points.Points); err != nil {
@@ -49,6 +58,9 @@ func AlgoHandler(w http.ResponseWriter, r *http.Request) {
 func MapHandler(w http.ResponseWriter, r *http.Request, ctx context.Context, client *routing.RoutesClient) {
 
 	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Access-Control-Allow-Origin", "*")
+	w.Header().Add("Access-Control-Allow-Methods", "POST, GET")
+	w.Header().Add("Access-Control-Allow-Headers", "*")
 	r.ParseForm()
 	var points PointList
 	if err := json.NewDecoder(r.Body).Decode(&points.Points); err != nil {
@@ -152,12 +164,13 @@ func SetApiRequest(points PointList) routingpb.ComputeRoutesRequest {
 func main() {
 
 	ctx := context.Background()
-	client, err := routing.NewRoutesClient(ctx, option.WithAPIKey(("API")))
+	client, err := routing.NewRoutesClient(ctx, option.WithAPIKey(("AIzaSyALCXpP8zMgMqZZ-7Nc8s7QBpdicqCqrj8")))
 	if err != nil {
 		fmt.Println(err)
 	}
 	defer client.Close()
 	http.HandleFunc("/algo", AlgoHandler)
+	http.HandleFunc("/test", TestHandler)
 	http.HandleFunc("/map", func(w http.ResponseWriter, r *http.Request) {
 		MapHandler(w, r, ctx, client)
 	})
