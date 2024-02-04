@@ -31,6 +31,7 @@ var points = [
 
 var distances = [];
 
+
 points.forEach(function(point) {
     var marker = L.marker(point.coordinates, { icon: defaultMarkerIcon }).addTo(map);
     marker.bindPopup(point.name);
@@ -72,5 +73,9 @@ points.forEach(function(point) {
     });
     
 });
+
+map.on('click', ()=>{
+    console.log("hello")
+})
 
 
